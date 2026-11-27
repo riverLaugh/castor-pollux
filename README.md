@@ -38,20 +38,10 @@ You talk to **one clear-headed Tech Lead (Gemini)**; behind the scenes, **isolat
 
 ## How It Works
 
-```mermaid
-flowchart TD
-    U[Your Goal] --> G1["Gemini (Commander)<br/>Explores Repo, Clarifies Scope & Edge Cases"]
-    G1 --> B["Contract Task Brief<br/>(Scope + Invariants + EC-1..EC-N)"]
-    B --> S["run_codex.py start<br/>(1 Codex Session = 1 Isolated Git Worktree)"]
-    S --> C["Codex CLI (Fast Worker)<br/>Implements & Self-Tests in Sandbox"]
-    C --> R["Structured JSON Handoff<br/>(--output-schema)"]
-    R --> V["Gemini (Independent Verifier)<br/>Audits Diff & Re-Runs Tests (L1-L4)"]
-    V -->|Verified| L["Safe Landing + Plain-Language Report<br/>(patch / squash / cherry-pick)"]
-    L --> D["Clean Up Worktree & Temp Branch"]
-    V -->|Gaps Found| FB["Surgical Rework in Same Worktree<br/>(run_codex.py resume)"]
-    FB --> C
-    V -->|Circuit Breaker / Blocked| ESC["Stop Spinning & Report Clearly to You"]
-```
+1. **Plan & Contract (Gemini)** — Gemini explores the repo, aligns with you on scope and numbered edge cases (`EC-1..EC-N`), and writes a bounded task brief.
+2. **Isolated Execution (Codex)** — `run_codex.py start` creates a dedicated Git worktree and branch (`1 session = 1 worktree`), runs `codex exec` in a sandbox, and captures a structured JSON report (`--output-schema`).
+3. **Zero-Trust Verification (Gemini)** — Gemini runs `run_codex.py inspect`, audits the real diff and untracked files, re-runs tests independently, and sends surgical rework (`run_codex.py resume`) if anything is missing (capped by `--max-rounds`).
+4. **Safe Landing & Clear Report (Gemini)** — Verified changes land via `patch`, `squash`, or `cherry-pick` with base-drift checks, temporary worktrees get cleaned up, and you get a plain-language summary of what changed and what was verified.
 
 ---
 

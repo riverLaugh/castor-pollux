@@ -37,20 +37,10 @@
 
 ## 工作流程
 
-```mermaid
-flowchart TD
-    U[你的需求] --> G1["Gemini（指挥官）<br/>勘探仓库、对齐方案与边界条件"]
-    G1 --> B["契约化任务书 Task Brief<br/>(修改范围 + 契约不变量 + EC-1..EC-N)"]
-    B --> S["run_codex.py start<br/>(1 个 Codex 会话 = 1 个独立 Worktree)"]
-    S --> C["Codex CLI（高速干活）<br/>在沙盒与独立 Worktree 内落地编码与自测"]
-    C --> R["结构化 JSON 交工单<br/>(--output-schema)"]
-    R --> V["Gemini（独立验收官）<br/>审 Diff + 亲自跑测试 + 核对边界 (L1-L4)"]
-    V -->|验收通过| L["安全合入 + 一目了然的验收汇报<br/>(patch / squash / cherry-pick)"]
-    L --> D["清理临时 Worktree 与分支"]
-    V -->|发现问题| FB["同一 Worktree 内精准打回返工<br/>(run_codex.py resume)"]
-    FB --> C
-    V -->|触发熔断 / Blocked| ESC["停止空转，清晰汇报现状交你拍板"]
-```
+1. **定方案与边界（Gemini）**：Gemini 先勘探仓库，帮你明确修改范围、不变量和编号边界条件（`EC-1..EC-N`），写出边界清晰的任务书。
+2. **隔离高速落地（Codex）**：`run_codex.py start` 创建独立 Git Worktree 与临时分支（`1 会话 = 1 Worktree`），在沙盒里跑 `codex exec` 并按 `--output-schema` 输出结构化交工报告。
+3. **零信任独立验收（Gemini）**：Gemini 调用 `run_codex.py inspect` 核对真实 diff 与新建文件、亲自重跑测试；若有遗漏则在原 worktree 内精准打回返工（`run_codex.py resume`，受 `--max-rounds` 熔断限制）。
+4. **安全合入与清晰汇报（Gemini）**：通过 `patch` / `squash` / `cherry-pick` 合回主仓库（自动检测基线漂移），清理临时 worktree，并给你一份一眼看懂的改动与验收总结。
 
 ---
 
