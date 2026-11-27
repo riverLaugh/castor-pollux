@@ -1,0 +1,9 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+dist/
+*.skill
+*.zip
+.venv/
+.env
+.env.*

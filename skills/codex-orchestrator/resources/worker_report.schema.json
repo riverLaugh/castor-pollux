@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CodexWorkerReport",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "status",
+    "summary",
+    "files_changed",
+    "edge_cases_handled",
+    "commands_run",
+    "assumptions_or_risks",
+    "blockers"
+  ],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["completed", "blocked", "partial"],
+      "description": "completed: all requirements and edge cases implemented and verified; blocked: stopped due to missing dependency, ambiguity, or out-of-scope requirement; partial: incomplete work."
+    },
+    "summary": {
+      "type": "string",
+      "description": "Concise technical summary of what was implemented or why work stopped."
+    },
+    "files_changed": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "change_type", "reason"],
+        "properties": {
+          "path": { "type": "string" },
+          "change_type": {
+            "type": "string",
+            "enum": ["added", "modified", "deleted"]
+          },
+          "reason": { "type": "string" }
+        }
+      }
+    },
+    "edge_cases_handled": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "status", "how_handled", "test_location"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Edge case ID from the task brief, e.g. EC-1."
+          },
+          "status": {
+            "type": "string",
+            "enum": ["handled", "not_applicable", "blocked"]
+          },
+          "how_handled": { "type": "string" },
+          "test_location": {
+            "type": "string",
+            "description": "Exact test file and test name covering this edge case, or 'none' if blocked/not_applicable."
+          }
+        }
+      }
+    },
+    "commands_run": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["command", "exit_code", "summary"],
+        "properties": {
+          "command": { "type": "string" },
+          "exit_code": { "type": "integer" },
+          "summary": { "type": "string" }
+        }
+      }
+    },
+    "assumptions_or_risks": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "blockers": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}
