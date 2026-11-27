@@ -2,15 +2,15 @@
   "name": "gemini-codex-orchestrator",
   "displayName": "Gemini Codex Orchestrator",
   "version": "0.1.0",
-  "description": "Manager-worker orchestration skill for Gemini to delegate bounded coding tasks to Codex CLI in isolated Git worktrees (1 session = 1 worktree), with structured reporting, edge-case auditing, circuit breakers, and safe landing.",
+  "description": "Gemini leads, Codex ships — stay completely in the loop with clear plans and independent verification while maxing out parallel coding productivity in isolated Git worktrees.",
   "author": {
     "name": "riverLaugh",
     "url": "https://github.com/riverLaugh"
   },
   "repository": "https://github.com/riverLaugh/gemini-codex-orchestrator",
   "suggestedPrompts": [
-    "Delegate this refactor to Codex in an isolated worktree and verify all edge cases",
-    "Split this feature into parallel Codex worktree tasks and audit each diff before landing",
-    "Inspect active Codex worktree runs and land verified changes as a clean patch"
+    "Delegate this feature to Codex in an isolated worktree, verify all edge cases, and give me a clear summary",
+    "Split these two refactors into parallel Codex worktrees and audit each diff before landing",
+    "Inspect active Codex worktree runs and land verified changes cleanly"
   ]
 }
