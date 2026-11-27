@@ -24,14 +24,28 @@ from typing import Any
 
 SKILL_ROOT = Path(__file__).resolve().parent.parent
 SCHEMA_PATH = SKILL_ROOT / "resources" / "worker_report.schema.json"
-DEFAULT_MODEL = os.environ.get("CODEX_ORCHESTRATOR_MODEL", "gpt-6.2-astra")
-DEFAULT_REASONING_EFFORT = os.environ.get("CODEX_ORCHESTRATOR_REASONING_EFFORT", "low")
-DEFAULT_SERVICE_TIER = os.environ.get("CODEX_ORCHESTRATOR_SERVICE_TIER", "fast")
+DEFAULT_MODEL = (
+    os.environ.get("CASTOR_POLLUX_MODEL")
+    or os.environ.get("CODEX_ORCHESTRATOR_MODEL")
+    or "gpt-6.2-astra"
+)
+DEFAULT_REASONING_EFFORT = (
+    os.environ.get("CASTOR_POLLUX_REASONING_EFFORT")
+    or os.environ.get("CODEX_ORCHESTRATOR_REASONING_EFFORT")
+    or "low"
+)
+DEFAULT_SERVICE_TIER = (
+    os.environ.get("CASTOR_POLLUX_SERVICE_TIER")
+    or os.environ.get("CODEX_ORCHESTRATOR_SERVICE_TIER")
+    or "fast"
+)
 REASONING_EFFORT_CHOICES = ("low", "medium", "high", "xhigh", "max", "ultra")
 if DEFAULT_REASONING_EFFORT not in REASONING_EFFORT_CHOICES:
     DEFAULT_REASONING_EFFORT = "low"
 CACHE_ROOT = Path(
-    os.environ.get("CODEX_ORCHESTRATOR_HOME", Path.home() / ".cache" / "codex-worktrees")
+    os.environ.get("CASTOR_POLLUX_HOME")
+    or os.environ.get("CODEX_ORCHESTRATOR_HOME")
+    or (Path.home() / ".cache" / "codex-worktrees")
 ).expanduser()
 REGISTRY_DIR = CACHE_ROOT / "registry"
 WORKTREES_DIR = CACHE_ROOT / "worktrees"

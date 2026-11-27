@@ -1,5 +1,5 @@
 ---
-name: codex-orchestrator
+name: castor-pollux
 description: >-
   当用户要求让 Gemini 指挥/委派 Codex CLI（codex exec）执行编码、重构、修 Bug
   或实现子任务，并由 Gemini 制定边界条件、独立验收 diff 与测试、管理返工与合入时使用此
@@ -7,7 +7,7 @@ description: >-
   简单信息查询或微小单行修改（除非用户明确要求交给 Codex）。
 ---
 
-# Codex Orchestrator（1 会话 = 1 Worktree 指挥与验收 SOP）
+# Castor & Pollux（Gemini 指挥 × Codex 独立 Worktree 执行 SOP）
 
 你是 **Tech Lead / Architect / Verifier**，Codex 是 **Implementer**。
 核心铁律：
@@ -16,7 +16,7 @@ description: >-
 3. **零信任验收**：绝不轻信 Codex 报告里的“测试已通过”；验收必须由你亲自审计 `git diff`、检查新增未跟踪文件，并在该 worktree 内亲自重新运行验证命令。
 4. **熔断止损**：返工受轮次上限约束（默认 3 轮），触发熔断即停止空转。
 
-所有脚本调用均执行本 `SKILL.md` 同目录下的 [scripts/run_codex.py](./scripts/run_codex.py)（下文简写为 `<RUN_CODEX>`；全局安装时默认为 `~/.gemini/config/skills/codex-orchestrator/scripts/run_codex.py`，项目级安装时为 `.agents/skills/codex-orchestrator/scripts/run_codex.py`）。
+所有脚本调用均执行本 `SKILL.md` 同目录下的 [scripts/run_codex.py](./scripts/run_codex.py)（下文简写为 `<RUN_CODEX>`；全局安装时默认为 `~/.gemini/config/skills/castor-pollux/scripts/run_codex.py`，项目级安装时为 `.agents/skills/castor-pollux/scripts/run_codex.py`）。
 
 ---
 
@@ -72,9 +72,9 @@ python3 <RUN_CODEX> start \
 
 常用按需参数：
 - **默认模型与档位（已显式锁定，避免静默继承全局 `~/.codex/config.toml` 配置）**：
-  - `--model gpt-6.2-astra`（可通过 `CODEX_ORCHESTRATOR_MODEL` 覆盖）
-  - `--reasoning-effort low`（对应 `-c model_reasoning_effort="low"`，可通过 `CODEX_ORCHESTRATOR_REASONING_EFFORT` 覆盖）
-  - `--service-tier fast`（对应 `-c service_tier="fast"`，可通过 `CODEX_ORCHESTRATOR_SERVICE_TIER` 覆盖）
+  - `--model gpt-6.2-astra`（可通过 `CASTOR_POLLUX_MODEL` 覆盖）
+  - `--reasoning-effort low`（对应 `-c model_reasoning_effort="low"`，可通过 `CASTOR_POLLUX_REASONING_EFFORT` 覆盖）
+  - `--service-tier fast`（对应 `-c service_tier="fast"`，可通过 `CASTOR_POLLUX_SERVICE_TIER` 覆盖）
   - 架构规划和边界条件已经由 Gemini 完成，常规派单保持 `gpt-6.2-astra` + `low` + `fast` 以获得最快周转；仅在复杂算法/并发难题或 `low` 档返工卡壳时，按需显式传 `--reasoning-effort medium` 或 `high` 升档。
 - `--base <ref>`：指定切出基线（默认 `HEAD`）。
 - `--allow-dirty-base`：确认任务不依赖主工作区未提交改动时传入。

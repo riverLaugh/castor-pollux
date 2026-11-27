@@ -1,15 +1,15 @@
 {
-  "name": "gemini-codex-orchestrator",
-  "displayName": "Gemini Codex Orchestrator",
+  "name": "castor-pollux",
+  "displayName": "Castor & Pollux",
   "version": "0.1.0",
   "description": "Gemini leads, Codex ships — stay completely in the loop with clear plans and independent verification while maxing out parallel coding productivity in isolated Git worktrees.",
   "author": {
     "name": "riverLaugh",
     "url": "https://github.com/riverLaugh"
   },
-  "repository": "https://github.com/riverLaugh/gemini-codex-orchestrator",
+  "repository": "https://github.com/riverLaugh/castor-pollux",
   "suggestedPrompts": [
-    "Delegate this feature to Codex in an isolated worktree, verify all edge cases, and give me a clear summary",
+    "Use castor-pollux to delegate this feature to Codex in an isolated worktree, verify all edge cases, and give me a clear summary",
     "Split these two refactors into parallel Codex worktrees and audit each diff before landing",
     "Inspect active Codex worktree runs and land verified changes cleanly"
   ]

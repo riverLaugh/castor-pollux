@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a reproducible, metadata-scrubbed codex-orchestrator.skill archive."""
+"""Build a reproducible, metadata-scrubbed castor-pollux.skill archive."""
 
 from __future__ import annotations
 
@@ -9,9 +9,9 @@ import zipfile
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-SKILL_SRC = REPO_ROOT / "skills" / "codex-orchestrator"
+SKILL_SRC = REPO_ROOT / "skills" / "castor-pollux"
 DIST_DIR = REPO_ROOT / "dist"
-OUT_FILE = DIST_DIR / "codex-orchestrator.skill"
+OUT_FILE = DIST_DIR / "castor-pollux.skill"
 
 EXCLUDE_NAMES = {".DS_Store", "__pycache__"}
 FIXED_ZIP_TIME = (2026, 1, 1, 0, 0, 0)
@@ -35,7 +35,7 @@ def main() -> None:
     with zipfile.ZipFile(OUT_FILE, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
         for f in files:
             rel = f.relative_to(SKILL_SRC)
-            arcname = f"codex-orchestrator/{rel.as_posix()}"
+            arcname = f"castor-pollux/{rel.as_posix()}"
             info = zipfile.ZipInfo(arcname, date_time=FIXED_ZIP_TIME)
             info.compress_type = zipfile.ZIP_DEFLATED
             info.create_system = 3  # Unix

@@ -1,7 +1,8 @@
-# Gemini Codex Orchestrator
+# Castor & Pollux
 
 > **Gemini leads. Codex ships.**
 > **Stay completely in the loop — while maxing out your coding throughput.**
+> *Named after the twin stars of Gemini: one navigates and verifies, the other ships at full speed.*
 
 [English](./README.md) | [简体中文](./README_ZH.md)
 
@@ -11,7 +12,7 @@
 
 Using a single AI coding agent often forces an annoying trade-off: either you babysit every edit slowly, or you hand over the keyboard and end up staring at a giant black-box diff you barely trust.
 
-**Gemini Codex Orchestrator** gives you the best of both worlds by splitting the job cleanly:
+**Castor & Pollux** gives you the best of both worlds by splitting the job cleanly:
 
 | Role | Who | What You Get |
 | :--- | :--- | :--- |
@@ -68,28 +69,28 @@ To keep *"Gemini leads, Codex ships"* reliable in real repositories (not just de
 
 ### Option 1: Install from `.skill` Release (Recommended)
 
-Download `codex-orchestrator.skill` from [GitHub Releases](https://github.com/riverLaugh/gemini-codex-orchestrator/releases) (standard ZIP archive with executable permissions preserved):
+Download `castor-pollux.skill` from [GitHub Releases](https://github.com/riverLaugh/castor-pollux/releases) (standard ZIP archive with executable permissions preserved):
 
 ```bash
 # Global install (available across all projects)
-unzip codex-orchestrator.skill -d ~/.gemini/config/skills/
+unzip castor-pollux.skill -d ~/.gemini/config/skills/
 
 # Or project-scoped install (shared inside a repository)
-unzip codex-orchestrator.skill -d <your-repo>/.agents/skills/
+unzip castor-pollux.skill -d <your-repo>/.agents/skills/
 ```
 
 ### Option 2: Install as an Antigravity Plugin
 
 ```bash
-git clone https://github.com/riverLaugh/gemini-codex-orchestrator.git \
-  ~/.gemini/config/plugins/gemini-codex-orchestrator
+git clone https://github.com/riverLaugh/castor-pollux.git \
+  ~/.gemini/config/plugins/castor-pollux
 ```
 
 ### Option 3: Copy Directly from Source
 
 ```bash
-git clone https://github.com/riverLaugh/gemini-codex-orchestrator.git
-cp -R gemini-codex-orchestrator/skills/codex-orchestrator ~/.gemini/config/skills/
+git clone https://github.com/riverLaugh/castor-pollux.git
+cp -R castor-pollux/skills/castor-pollux ~/.gemini/config/skills/
 ```
 
 ---
@@ -97,14 +98,14 @@ cp -R gemini-codex-orchestrator/skills/codex-orchestrator ~/.gemini/config/skill
 ## Example Prompts
 
 Once installed, just talk to Gemini naturally:
-- *"Use `codex-orchestrator` to delegate this rate-limiter implementation to Codex, make sure all edge cases are tested, and give me a clear verification summary before landing."*
+- *"Use `castor-pollux` to delegate this rate-limiter implementation to Codex, make sure all edge cases are tested, and give me a clear verification summary before landing."*
 - *"Split these two refactors into parallel Codex worktrees, audit each diff independently, and apply the verified changes as clean patches."*
 
 ---
 
 ## CLI Reference (`run_codex.py`)
 
-Gemini drives the workflow through `skills/codex-orchestrator/scripts/run_codex.py`:
+Gemini drives the workflow through `skills/castor-pollux/scripts/run_codex.py`:
 
 | Command | Purpose |
 | :--- | :--- |
@@ -125,14 +126,14 @@ By default, Codex launches with an explicit fast worker profile so it won't sile
 
 | Setting | Default | CLI Flag | Environment Variable |
 | :--- | :--- | :--- | :--- |
-| Model | `gpt-6.2-astra` | `--model` | `CODEX_ORCHESTRATOR_MODEL` |
-| Reasoning effort | `low` | `--reasoning-effort` (`low\|medium\|high\|xhigh\|max\|ultra`) | `CODEX_ORCHESTRATOR_REASONING_EFFORT` |
-| Service tier | `fast` | `--service-tier` (`fast`, or `standard` to disable `fast_mode`) | `CODEX_ORCHESTRATOR_SERVICE_TIER` |
-| Worktree & registry root | `~/.cache/codex-worktrees` | — | `CODEX_ORCHESTRATOR_HOME` |
+| Model | `gpt-6.2-astra` | `--model` | `CASTOR_POLLUX_MODEL` |
+| Reasoning effort | `low` | `--reasoning-effort` (`low\|medium\|high\|xhigh\|max\|ultra`) | `CASTOR_POLLUX_REASONING_EFFORT` |
+| Service tier | `fast` | `--service-tier` (`fast`, or `standard` to disable `fast_mode`) | `CASTOR_POLLUX_SERVICE_TIER` |
+| Worktree & registry root | `~/.cache/codex-worktrees` | — | `CASTOR_POLLUX_HOME` |
 
 Escalate reasoning on a tough rework turn without changing global defaults:
 ```bash
-python3 skills/codex-orchestrator/scripts/run_codex.py resume \
+python3 skills/castor-pollux/scripts/run_codex.py resume \
   --run "<run_id>" \
   --feedback "/tmp/feedback.md" \
   --reasoning-effort medium
@@ -143,7 +144,7 @@ python3 skills/codex-orchestrator/scripts/run_codex.py resume \
 ## Repository Layout & Reproducible Build
 
 ```text
-gemini-codex-orchestrator/
+castor-pollux/
 ├── LICENSE
 ├── README.md
 ├── README_ZH.md
@@ -151,7 +152,7 @@ gemini-codex-orchestrator/
 ├── scripts/
 │   └── build_skill.py                           # Reproducible, metadata-scrubbed .skill packer
 └── skills/
-    └── codex-orchestrator/
+    └── castor-pollux/
         ├── SKILL.md                             # 5-phase Manager-Worker SOP
         ├── scripts/
         │   └── run_codex.py                     # 1-session-1-worktree lifecycle harness
@@ -165,7 +166,7 @@ gemini-codex-orchestrator/
 Build `.skill` locally:
 ```bash
 python3 scripts/build_skill.py
-# -> dist/codex-orchestrator.skill
+# -> dist/castor-pollux.skill
 ```
 
 ---

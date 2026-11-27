@@ -1,6 +1,7 @@
-# Gemini Codex Orchestrator
+# Castor & Pollux
 
 > **Gemini 指挥，Codex 干活 —— 既能看得懂，又能拉满生产力。**
+> *取名自双子座（Gemini）双星：一颗领航把关、让你看得清楚，一颗火力全开、把产出拉满。*
 
 [English](./README.md) | [简体中文](./README_ZH.md)
 
@@ -10,7 +11,7 @@
 
 单用一个 AI 写代码，经常陷入两难：要么自己一步步盯着改、速度慢；要么全放手交给 Agent 狂写，最后甩过来一大坨黑盒 Diff，看不明白也不敢合并。
 
-**Gemini Codex Orchestrator** 把两者的强项彻底拆开再组合：
+**Castor & Pollux** 把两者的强项彻底拆开再组合：
 
 | 分工 | 角色 | 带给你的核心体验 |
 | :--- | :--- | :--- |
@@ -67,28 +68,28 @@
 
 ### 方式一：下载 `.skill` 安装包（推荐）
 
-前往 [GitHub Releases](https://github.com/riverLaugh/gemini-codex-orchestrator/releases) 下载 `codex-orchestrator.skill`（标准 ZIP 格式，已保留可执行权限）：
+前往 [GitHub Releases](https://github.com/riverLaugh/castor-pollux/releases) 下载 `castor-pollux.skill`（标准 ZIP 格式，已保留可执行权限）：
 
 ```bash
 # 全局安装（所有项目直接生效）
-unzip codex-orchestrator.skill -d ~/.gemini/config/skills/
+unzip castor-pollux.skill -d ~/.gemini/config/skills/
 
 # 或项目级安装（随项目仓库共享给团队）
-unzip codex-orchestrator.skill -d <你的项目>/.agents/skills/
+unzip castor-pollux.skill -d <你的项目>/.agents/skills/
 ```
 
 ### 方式二：作为 Antigravity Plugin 直接克隆安装
 
 ```bash
-git clone https://github.com/riverLaugh/gemini-codex-orchestrator.git \
-  ~/.gemini/config/plugins/gemini-codex-orchestrator
+git clone https://github.com/riverLaugh/castor-pollux.git \
+  ~/.gemini/config/plugins/castor-pollux
 ```
 
 ### 方式三：从源码拷贝 Skill 目录
 
 ```bash
-git clone https://github.com/riverLaugh/gemini-codex-orchestrator.git
-cp -R gemini-codex-orchestrator/skills/codex-orchestrator ~/.gemini/config/skills/
+git clone https://github.com/riverLaugh/castor-pollux.git
+cp -R castor-pollux/skills/castor-pollux ~/.gemini/config/skills/
 ```
 
 ---
@@ -96,7 +97,7 @@ cp -R gemini-codex-orchestrator/skills/codex-orchestrator ~/.gemini/config/skill
 ## 使用示例
 
 安装完成后，直接自然语言告诉 Gemini 即可：
-- *“用 `codex-orchestrator` 把这个限流中间件交给 Codex 在独立 worktree 里实现，把边界条件测全，你独立验收后再给我一份清晰的改动说明。”*
+- *“用 `castor-pollux` 把这个限流中间件交给 Codex 在独立 worktree 里实现，把边界条件测全，你独立验收后再给我一份清晰的改动说明。”*
 - *“把这两个模块的重构拆成两个并行的 Codex worktree 一起干，两边各自验收完再合回主工作区。”*
 
 ---
@@ -122,14 +123,14 @@ cp -R gemini-codex-orchestrator/skills/codex-orchestrator ~/.gemini/config/skill
 
 | 配置项 | 默认值 | CLI 参数 | 环境变量 |
 | :--- | :--- | :--- | :--- |
-| 模型 | `gpt-6.2-astra` | `--model` | `CODEX_ORCHESTRATOR_MODEL` |
-| 推理强度 | `low` | `--reasoning-effort`（`low\|medium\|high\|xhigh\|max\|ultra`） | `CODEX_ORCHESTRATOR_REASONING_EFFORT` |
-| 速度档位 | `fast` | `--service-tier`（`fast`，传 `standard` 可关闭 `fast_mode`） | `CODEX_ORCHESTRATOR_SERVICE_TIER` |
-| Worktree 与状态目录 | `~/.cache/codex-worktrees` | — | `CODEX_ORCHESTRATOR_HOME` |
+| 模型 | `gpt-6.2-astra` | `--model` | `CASTOR_POLLUX_MODEL` |
+| 推理强度 | `low` | `--reasoning-effort`（`low\|medium\|high\|xhigh\|max\|ultra`） | `CASTOR_POLLUX_REASONING_EFFORT` |
+| 速度档位 | `fast` | `--service-tier`（`fast`，传 `standard` 可关闭 `fast_mode`） | `CASTOR_POLLUX_SERVICE_TIER` |
+| Worktree 与状态目录 | `~/.cache/codex-worktrees` | — | `CASTOR_POLLUX_HOME` |
 
 遇硬核返工时可单次升档而不改动全局默认：
 ```bash
-python3 skills/codex-orchestrator/scripts/run_codex.py resume \
+python3 skills/castor-pollux/scripts/run_codex.py resume \
   --run "<run_id>" \
   --feedback "/tmp/feedback.md" \
   --reasoning-effort medium
@@ -140,7 +141,7 @@ python3 skills/codex-orchestrator/scripts/run_codex.py resume \
 ## 仓库结构与本地复现打包
 
 ```text
-gemini-codex-orchestrator/
+castor-pollux/
 ├── LICENSE
 ├── README.md
 ├── README_ZH.md
@@ -148,7 +149,7 @@ gemini-codex-orchestrator/
 ├── scripts/
 │   └── build_skill.py                           # 可复现、脱敏的 .skill 打包脚本
 └── skills/
-    └── codex-orchestrator/
+    └── castor-pollux/
         ├── SKILL.md                             # 5 阶段指挥与验收 SOP
         ├── scripts/
         │   └── run_codex.py                     # 1 会话 1 Worktree 生命周期脚本
@@ -162,7 +163,7 @@ gemini-codex-orchestrator/
 本地复现构建 `.skill`：
 ```bash
 python3 scripts/build_skill.py
-# 输出 dist/codex-orchestrator.skill
+# 输出 dist/castor-pollux.skill
 ```
 
 ---
